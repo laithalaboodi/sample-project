@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+ 
+<html>
+
+    <head>
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type='text/JavaScript'>
+            function passValidate()
+ 
+            {
+ 
+                var pass = document.getElementById("pass").value;
+ 
+                var cpass = document.getElementById("cpass").value;
+ 
+ 
+ 
+                if(pass == cpass)
+ 
+                    {
+ 
+                        console.log("4");
+ 
+                        document.getElementById("e2").innerText = " "; 
+ 
+                    }
+ 
+                    else
+ 
+                    {
+ 
+                        console.log("5");
+ 
+                        document.getElementById("e2").style.color = "red";
+ 
+                        document.getElementById("e2").innerText = "Password Mismatch ";   
+ 
+                    }
+ 
+            }
+ 
+ 
+ 
+            function emailValidate()
+ 
+            {
+ 
+                var emailId = document.getElementById("emailId").value;
+ 
+            
+ 
+                console.log("1");
+ 
+                var regex = /^\w+([-.]?\w+)*@\w+([-.]?\w+)*\.\w+([-.]\w+)*$/;
+ 
+ 
+ 
+                if( regex.test(emailId))
+ 
+                {
+ 
+                    console.log("2");
+ 
+                    document.getElementById("e1").innerText = " ";
+ 
+                }
+ 
+                else
+ 
+                {
+ 
+                    console.log("3");
+ 
+                    document.getElementById("e1").style.color = "red";
+ 
+                    document.getElementById("e1").innerText = "Incorrect Email Id ";
+ 
+                }
+ 
+            }
+        </script>
+    </head>
+    <body>
+
+      </script>
+
+        <h2>
+ 
+        <center>
+ 
+            <form name="f">
+ 
+                    First Name: <input type="text" id="fname" >
+ 
+                     
+  
+ 
+ 
+                    Last Name: <input type="text" id="lname" >
+ 
+                     
+  
+ 
+ 
+                    Email Address: <input type="text" id="emailId"  onkeyup="emailValidate()" > <p id="e1"> </p>
+ 
+                     
+  
+ 
+ 
+                    Password: <input type="password" id="pass" > <p id="e2"> </p>
+ 
+                     
+  
+ 
+ 
+                    Confirm Password: <input type="password" id="cpass" onkeyup="passValidate()" >
+ 
+                     
+  
+ 
+ 
+                    <br>
+                    <button onclick="add(document.getElementById('fname').value,document.getElementById('lname').value,document.getElementById('emailId').value
+                    ,document.getElementById('pass').value)">Sign up</button>
+
+
+
+<script>
+  function add(fname,lname,emailId,pass){
+
+    if(fname !== "" && lname !== "" && emailId !== "" && pass !== ""){
+    fetch('http://localhost:8085/user/register', {
+method: "POST",
+headers: {
+Accept: "application/json",
+"Content-Type": "application/json"
+},
+body: JSON.stringify({
+first: fname,
+last: lname,
+email: emailId ,
+pass: pass
+})
+
+});
+window.alert("signed up");
+}else{
+  window.alert("please fill the form");
+}
+  }
+</script>
+
+<div class="mypanel"></div>
+Look for a user using id: <input type="number" name="a" id="a"><br>
+<button type="button" onclick="lookUp()">look</button>
+<script>
+    function lookUp(){
+    var a = document.getElementById('a').value;
+    $.getJSON('http://localhost:8085/user/id/'+a+'', function(data) {
+
+        var text = `id: ${data.id}<br>
+                    First: ${data.first}<br>
+                    Last: ${data.last}<br>
+                    Email: ${data.email}`
+
+
+        $(".mypanel").html(text);
+    });
+}
+    </script>
+
+          </form>
+ 
+        </center>
+ 
+         </h2>
+ 
+    </body>
+ 
+</html></div>
+      
+    </div><!-- tab-content -->
+    
+</div> <!-- /form -->
